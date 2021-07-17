@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSort</title>
+</head>
+<body>
+
+  <nav class="navbar  is-info" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item">
+        <h1 class="title has-text-white">
+          WebSort
+        </h1>
+      </a>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      
+      
+
+      <div class="card animate__animated animate__fadeIn">
+        <div class="card-content">
+          <!-- Search file input -->
+          <div class="my-4">
+            <label class="label" for="searchFileIn">
+              Input Search File
+            </label>
+            <input class="input" type='file' id="searchFileIn"/>
+          </div>
+
+          <!-- Page counts in search file -->
+          <div class="columns">
+            <div class="column">
+              <label class="label" for="paCount">PA Count</label>
+              <input class="input" type='number' id="paCount" value="2" />
+            </div>
+            <div class="column">
+              <label class="label" for="spaCount">SPA Count</label>
+              <input class="input" type='number' id="spaCount" value="1" />
+            </div>
+            <div class="column">
+              <label class="label" for="rcCount">RC Count</label>
+              <input class="input" type='number' id="rcCount" value="1" />
+            </div>
+          </div>
+
+          <!-- Ident File to be sorted -->
+          <div class="my-4">
+            <label class="label" for="sortFileIn">Input Indent File</label>
+            <input class="input" type='file' id="sortFileIn"/>
+          </div>
+        </div>
+      </div>
+
+      <button id="startBtn" class="button my-4">Start Search</button>
+    </div>
+      
+
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h1 class="subtitle">Logs</h1>
+      <div >
+        <textarea readonly class="textarea" id="output" rows="10"></textarea>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Parallel -->
+  <script src='https://unpkg.com/paralleljs@1.0/lib/parallel.js'></script>
+
+  <!-- SQL-JS for SQLLite in browser -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.5.0/sql-wasm.min.js" integrity="sha512-l5XgljO54rARJoeqQoY4w0sAJVFd/0GVSvFNtr9YSCSEe+M7Lg0tDw7WQg1J06Mr0/2f9M6ExdHBChwxWammKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Memory Issue -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.5.0/sql-asm-memory-growth.min.js" integrity="sha512-Dj/7xjW3ZydZvmi+hsE55mCFmTwES2S9qQFnZq6YChhHb7kgjhLKMJJCE/wB0tXUvnsCm7WZLhEeU97OEU8M0Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- XLSX for Sheets manipulation -->
+  <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+
+  <!-- Bulma -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+
+  <!-- Animate CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  
+  <!-- My packages -->
+  <script type="module" src="./js/sqllite.js"></script>
+  <script type="module" src="./js/index.js"></script>
+
+</body>
+</html>

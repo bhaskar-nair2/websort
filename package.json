@@ -1,0 +1,15 @@
+{
+  "name": "websort",
+  "version": "1.0.0",
+  "description": "Websort system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bhaskar nair",
+  "license": "ISC",
+  "dependencies": {
+    "sql.js": "^1.5.0",
+    "xlsx": "^0.17.0"
+  }
+}
