@@ -73,9 +73,10 @@ export default class SQLWorker {
         stmt.run(formattedItem)
         stmt.free()
       } catch (error) {
-        console.error(error, item);
-        print(`Error in Item: ${item['C'] || item['D'] || 'Missing Name!'}`)
-        print('Please check if all required fields are provided')
+        console.error(error, formattedItem);
+        print(
+          `Error in Item: ${item['C'] || item['D'] || 'Missing Name!'}`, true
+        )
       }
     })
   }
@@ -107,7 +108,7 @@ export default class SQLWorker {
 
   }
 
-  logTableData(tname) {
+  getTableData(tname) {
     return this.db.exec(`select * from ${tname}`)
   }
 }

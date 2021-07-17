@@ -1,13 +1,17 @@
-const outputElm = document.getElementById('output');
+const outputElm = document.getElementById('outputLogs');
+const errorElm = document.getElementById('errorLogs');
+
 
 // eslint-disable-next-line import/prefer-default-export
-export function print(text) {
-  outputElm.value += `${text}\n`;
-  outputElm.scrollTop = outputElm.scrollHeight
+export function print(text, error = false) {
+  const elm = error ? errorElm : outputElm;
+  elm.value += `${text}\n`;
+  elm.scrollTop = elm.scrollHeight
 }
 
 export function clear() {
   outputElm.value = ''
+  errorElm.value = ''
 }
 
 // takes an array of arrays. groups by given length. 

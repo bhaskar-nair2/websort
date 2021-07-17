@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/extensions
-import { readFile } from './xlsx.js';
+import { readFile, writeFile } from './xlsx.js';
 import SQL from './sqllite.js'
 import stmts from './sqlStmts.js';
-import { print, splitJoinArray } from './helpers.js';
+import { print, clear, splitJoinArray } from './helpers.js';
 
 
 // Todo: Get excel files from user
@@ -30,6 +30,7 @@ startBtn.addEventListener('click', start)
 // Main Thread
 async function start() {
   // Init db
+  clear()
   await worker.init()
 
   // Todo: Convert excel to JSON
@@ -47,14 +48,21 @@ async function start() {
   )
   tables.forEach((tab, index) => {
     worker.addSearchData(tab.table, splits[index])
-    worker.logTableData(tab.table)
+    // console.log(tab.table, worker.getTableData(tab.table));
   })
   print(`Search Data Added!`);
+  print(`Starting Search now!`);
 
   // Indent data functions
   worker.addIndentData(sortFileData[0])
 
-  console.table(worker.db.exec(`select * from notFoundView`))
+  const gpaData = worker.db.exec(`select * from gpaView`)
+  const spaData = worker.db.exec(`select * from spaView`)
+  const rclData = worker.db.exec(`select * from rclView`)
+  const ntfData = worker.db.exec(`select * from notFoundView`)
+
+  // console.table(rcData)
+  writeFile([[ntfData, 'Not Found'], [gpaData, 'gpa'], [spaData, 'spa'], [rclData, 'rc']])
 
   window.worker = worker
 }

@@ -1,7 +1,7 @@
 export default {
   createSearchTable(tname, type) {
     let stmt = `create table ${tname} (`;
-    stmt += 'contract varchar(20),';
+    stmt += 'contract varchar(20) not null,';
     stmt += 'name  varchar(200) not null,';
     stmt += 'alias varchar(200) not null,';
     stmt += 'unit varchar(20),';
@@ -10,8 +10,8 @@ export default {
     stmt += 'gst int default 12,';
     stmt += 'supplier varchar(50),';
     stmt += 'to_date varchar(50),';
-    stmt += 'from_date varchar(50),';
-    stmt += 'primary key (contract)';
+    stmt += 'from_date varchar(50)';
+    // stmt += 'primary key (contract)';
     stmt += ')';
     return stmt;
   },
@@ -21,14 +21,16 @@ export default {
   },
 
   createViewForTable(vname, tname, itname) {
-    const cols = "i.indref, g.contract, i.name, g.unit, g.coy, g.rate, i.qty, g.rate*i.qty as amount, g.gst, (g.rate*i.qty*gst)+(g.rate*i.qty) as   totalAmount,  g.supplier"
+    const cols = "i.indref, g.contract, g.name, g.unit, g.coy, g.rate, i.qty, g.rate*i.qty as amount, g.gst, (g.rate*i.qty*gst)+(g.rate*i.qty) as totalAmount, g.supplier"
 
     let stmt = `CREATE view ${vname} as `;
     stmt += `select ${cols} from ${tname} g, ${itname} i `
-    stmt += `WHERE g.name like "%"||i.name||"%" `
-    stmt += `or g.alias like "%"||i.alias||"%" `
-    stmt += `or i.name like "%"||g.name||"%"  `
-    stmt += `or i.alias like "%"||g.alias||"%" `
+    stmt += `WHERE g.name like i.name `
+    stmt += `or g.alias like i.alias `
+    // stmt += `or i.name like "%"||g.name||"%"  `
+    // stmt += `or i.alias like "%"||g.alias||"%" `
+
+    console.log(stmt);
 
     return stmt
   },
@@ -62,7 +64,11 @@ export default {
   },
 };
 
-
+/**
+ * Return ?, ?, ? len number of times
+ * @param {Number} len 
+ * @returns ?, ?, ?
+ */
 const nm = (len) => Array.from(Array(len).keys()).reduce((acc, _, cur) => {
   let sm = acc;
   sm += `?`;
