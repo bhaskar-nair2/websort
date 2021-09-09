@@ -62,6 +62,10 @@ export default {
   insertDm(tname) {
     return `insert into ${tname} values ( :0, :1)`
   },
+
+  getMatching(word, tname) {
+    return `select contract, name, coy, rate, gst, supplier from ${tname} where name like '%${word}%'`
+  }
 };
 
 /**

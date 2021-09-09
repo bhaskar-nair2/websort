@@ -22,19 +22,19 @@ export function splitJoinArray(array = [], start, end) {
 
 // SQL DATA
 
-export const alias_ignore = ['tab', 'mg', 'oint', 'ml', 'ointment', 'cap', 'per', 'mg', 'gm', 'amp', 'ampoule', 'cream', 'bott', 'bottle']
+const alias_ignore = ['tab', 'mg', 'oint', 'ml', 'ointment', 'cap', 'per', 'mg', 'gm', 'amp', 'ampoule', 'cream', 'bott', 'bottle']
 
-export const guess_ignore = [
+const guess_ignore = [
   'insulin', 'collection', 'purified', 'equivalent',
   'containing', 'prefilled', 'syringe', 'closing',
   'polythene', 'envelope', 'facility', 'disposable',
   'plastic', 'sterile', 'suspension', 'inhaler', 'needles',
   'injection', 'culture', 'solution', 'combination',
   'sulphate', 'acetate', 'chloride',
-  'test', 'kit', 'water', 'vial'
+  'test', 'kit', 'water', 'vial', 'powder'
 ]
 
-function clean(val = '', type) {
+export function clean(val = '', type) {
   val = val.toLowerCase().trim()
 
   alias_ignore.forEach(term => {

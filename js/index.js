@@ -3,15 +3,17 @@ import { readFile, writeFile } from './xlsx.js';
 import SQL from './sqllite.js'
 import stmts from './sqlStmts.js';
 import { print, clear, splitJoinArray } from './helpers.js';
+import { createGuesses } from './guesses.js';
 
 
 // Todo: Get excel files from user
-const worker = new SQL()
+export const worker = new SQL()
 const tables = worker.tables
 
 const searchFileIn = document.getElementById('searchFileIn');
 const sortFileIn = document.getElementById('sortFileIn');
 const startBtn = document.getElementById('startBtn');
+const progBar = document.getElementById('progress-bar');
 
 
 let searchFile, sortFile;
@@ -30,6 +32,7 @@ startBtn.addEventListener('click', start)
 // Main Thread
 async function start() {
   // Init db
+  progBar.classList.remove('is-invisible')
   clear()
   await worker.init()
 
@@ -61,10 +64,13 @@ async function start() {
   const rclData = worker.db.exec(`select * from rclView`)
   const ntfData = worker.db.exec(`select * from notFoundView`)
 
+  const guesses = createGuesses(ntfData)
+
   // console.table(rcData)
-  writeFile([[ntfData, 'Not Found'], [gpaData, 'gpa'], [spaData, 'spa'], [rclData, 'rc']])
+  writeFile([[ntfData, 'Not Found'], [gpaData, 'gpa'], [spaData, 'spa'], [rclData, 'rc'], [guesses, 'Guesses'],])
 
   window.worker = worker
+  progBar.classList.add('is-invisible')
 }
 
 

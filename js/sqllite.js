@@ -108,6 +108,14 @@ export default class SQLWorker {
 
   }
 
+
+  getMatchingGuess(word) {
+    const res = []
+    for (let tab of this.tables)
+      res.push(...this.db.exec(stmts.getMatching(word, tab.table)))
+    return res
+  }
+
   getTableData(tname) {
     return this.db.exec(`select * from ${tname}`)
   }
