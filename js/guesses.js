@@ -8,25 +8,23 @@ import { clean } from "./helpers.js";
  */
 export const createGuesses = function (list = []) {
   const matches = []
-  console.log(list);
   if (list && list.length) {
     for (let item of list[0].values) {
       const words = getSignificantWords(item[1])
+      let res = []
       for (let word of words) {
-        let res = worker.getMatchingGuess(word)
-        console.log(res);
-        if (res.length)
-          matches.push({ item, res })
+        res.push(...worker.getMatchingGuess(word))
       }
+      if (res.length)
+        matches.push({ item, res })
     }
   }
   const fMatches = formatMatches(matches)
-  console.log(fMatches);
   return fMatches
 }
 
 const getSignificantWords = function (str = '') {
-  let val = clean(str)
+  let val = clean(str, 'guess')
   let words = val.split(' ').filter(w => w.length > 5)
   if (words.length == 0)
     words = val.split(' ').filter(w => w.length > 4)

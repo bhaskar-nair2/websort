@@ -31,23 +31,20 @@ const guess_ignore = [
   'plastic', 'sterile', 'suspension', 'inhaler', 'needles',
   'injection', 'culture', 'solution', 'combination',
   'sulphate', 'acetate', 'chloride',
-  'test', 'kit', 'water', 'vial', 'powder'
+  'test', 'kit', 'water', 'vial', 'powder', 'sodium'
 ]
 
 export function clean(val = '', type) {
   val = val.toLowerCase().trim()
 
-  alias_ignore.forEach(term => {
-    val = val.replace(term, '').trim()
-  })
+  // Filter ignored words
+  let arr = val.split(' ')
+  arr = arr.filter(s => !alias_ignore.includes(s))
+  if (type == 'guess')
+    arr = arr.filter((s = '') => !guess_ignore.includes(s))
+  val = arr.join(' ')
 
-  if (type == 'guess') {
-    val = val.replace(_, '').trim()
-    guess_ignore.forEach(term => {
-      val = val.replace(term, '').trim()
-    })
-  }
-
+  // RegEx Cleaning
   val = val.replace(/[(\[].+?[)\]]/i, ' ')
   val = val.replace(/[!@#$%^&*(),.?`\'"/:{}|<>+=-]/i, ' ')
   return val
