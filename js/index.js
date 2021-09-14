@@ -5,7 +5,7 @@ import { print, clear } from './helpers.js';
 import { createGuesses } from './guesses.js';
 
 
-// Todo: Get excel files from user
+// Todo: Give sample excel files to user
 export const worker = new SQL()
 const tables = worker.tables
 
@@ -13,7 +13,6 @@ const searchFileIn = document.getElementById('searchFileIn');
 const sortFileIn = document.getElementById('sortFileIn');
 const startBtn = document.getElementById('startBtn');
 const progBar = document.getElementById('progress-bar');
-
 
 let searchFile, sortFile;
 
@@ -58,11 +57,13 @@ async function start() {
   // Indent data functions
   worker.addIndentData(sortFileData[0])
 
+  // Get all views as arrays
   const gpaData = worker.db.exec(`select * from gpaView`)
   const spaData = worker.db.exec(`select * from spaView`)
   const rclData = worker.db.exec(`select * from rclView`)
   const ntfData = worker.db.exec(`select * from notFoundView`)
 
+  // Create the guessses array
   const guesses = createGuesses(ntfData)
 
   // console.table(rcData)

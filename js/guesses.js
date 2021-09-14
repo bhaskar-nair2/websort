@@ -33,13 +33,17 @@ const getSignificantWords = function (str = '') {
 
 const formatMatches = function (matches = []) {
   const formatted = {}
-  formatted['columns'] =
+
+  formatted.columns =
     ["contract", "name", "coy", "rate", "gst", "supplier"]
-  formatted['values'] = []
+  formatted.values = []
+
   matches.forEach(function (val) {
-    formatted['values'].push(val.item)
-    formatted['values'].push(...val.res[0].values)
-    formatted['values'].push(['------------XX (ᕗ ͡^ ͜ʖ ͡^)ᕗ XX------------'])
+    formatted.values.push(val.item)
+    formatted.values.push(...val.res[0].values)
+    // * to improve readability
+    formatted.values.push(['------------XX (ᕗ ͡^ ͜ʖ ͡^)ᕗ XX-----------'])
+    formatted.values.push(['                                 '])
   })
   return [formatted]
 }

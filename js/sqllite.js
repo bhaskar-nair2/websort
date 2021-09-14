@@ -1,11 +1,7 @@
 import stmts from './sqlStmts.js';
 import { print, makeAlias } from './helpers.js';
 
-// const stmt = db.prepare(stmts.insert('search'));
-// stmt.getAsObject(Object.values(sample));
-
 export default class SQLWorker {
-
   tables = [
     { table: 'gpaTable', view: 'gpaView', count: 'paCount' },
     { table: 'spaTable', view: 'spaView', count: 'spaCount' },
@@ -17,6 +13,10 @@ export default class SQLWorker {
 
   initSqlJs = window.initSqlJs
 
+  /**
+   * Create the basic webSQL worker and primary tables and Views
+   * which will be used accross the proeject
+   */
   async init() {
     print(`Initiating WebSQL system`);
 
@@ -26,7 +26,7 @@ export default class SQLWorker {
 
     this.db = new this.SQL.Database();
 
-    // Create search Tables & Views
+    // Create search Tables, Views and indexes
     this.tables.forEach(tab => {
       this.db.exec(stmts.createSearchTable(tab.table));
       this.db.exec(stmts.createIndex(tab.table))
@@ -48,6 +48,8 @@ export default class SQLWorker {
     print(`WebSQL system ready!`);
   }
 
+  // Create the search item to be added to the sql table
+  // ! Hard coded column names
   formatSearchItem(item) {
     return [
       item['C'], //contract:
@@ -63,7 +65,7 @@ export default class SQLWorker {
     ]
   }
 
-  // ! Will recieve an array
+  // * Will recieve an array of search items to be put into the search table
   addSearchData(table, arr = []) {
     print(`Adding data to ${table}`);
 
@@ -108,7 +110,6 @@ export default class SQLWorker {
     })
 
   }
-
 
   getMatchingGuess(word) {
     const res = []

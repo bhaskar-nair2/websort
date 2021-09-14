@@ -45,7 +45,7 @@ export default {
     return stmt
   },
 
-  createIndex(tname){
+  createIndex(tname) {
     return `Create Index ${tname}_index on ${tname} (name, alias)`
   },
 

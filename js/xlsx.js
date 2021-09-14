@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/extensions
 import { print } from './helpers.js';
 
 const { XLSX } = window;
@@ -52,7 +51,6 @@ const UT8ArraytoJSON = async function (ut8ar) {
   }
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export const readFile = async function (file) {
   const ut8ar = await excelFileToUT8Array(file);
   const jsonData = await UT8ArraytoJSON(ut8ar);
