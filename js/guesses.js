@@ -23,14 +23,24 @@ export const createGuesses = function (list = []) {
   return fMatches
 }
 
+/**
+ * Create an array of significant words (l>4/l>5) for a particular Drug Name
+ * @param {String} str 
+ * @returns {Array} Significant Words
+ */
 const getSignificantWords = function (str = '') {
   let val = clean(str, 'guess')
   let words = val.split(' ').filter(w => w.length > 5)
-  if (words.length == 0)
+  if (words.length <= 2)
     words = val.split(' ').filter(w => w.length > 4)
   return words
 }
 
+/**
+ * Formatter function to convert generated input to Writeable input
+ * @param {Array} matches 
+ * @returns {Array{Object}} Formatted DS
+ */
 const formatMatches = function (matches = []) {
   const formatted = {}
 
