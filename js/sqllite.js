@@ -29,6 +29,7 @@ export default class SQLWorker {
     // Create search Tables & Views
     this.tables.forEach(tab => {
       this.db.exec(stmts.createSearchTable(tab.table));
+      this.db.exec(stmts.createIndex(tab.table))
       this.db.exec(stmts.createViewForTable(tab.view, tab.table, this.indentTable));
     })
 

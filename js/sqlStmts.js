@@ -30,8 +30,7 @@ export default {
     // stmt += `or i.name like "%"||g.name||"%"  `
     // stmt += `or i.alias like "%"||g.alias||"%" `
 
-    console.log(stmt);
-
+    // console.log(stmt);
     return stmt
   },
 
@@ -44,6 +43,10 @@ export default {
     and indref not in (select indref from ${views[2]});`
 
     return stmt
+  },
+
+  createIndex(tname){
+    return `Create Index ${tname}_index on ${tname} (name, alias)`
   },
 
   insertInSearch(tname) {

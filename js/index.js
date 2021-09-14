@@ -1,8 +1,7 @@
 // eslint-disable-next-line import/extensions
 import { readFile, writeFile } from './xlsx.js';
 import SQL from './sqllite.js'
-import stmts from './sqlStmts.js';
-import { print, clear, splitJoinArray } from './helpers.js';
+import { print, clear } from './helpers.js';
 import { createGuesses } from './guesses.js';
 
 
