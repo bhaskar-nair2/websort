@@ -34,6 +34,7 @@ const UT8ArraytoJSON = async function (ut8ar) {
 
     workbook.SheetNames.forEach((sheet) => {
       print(`Now reading sheet ${sheet}`);
+      // ! Blocks the Event Loop
       const newArr = XLSX.utils.sheet_to_json(workbook.Sheets[sheet], {
         header: 'A', // header type
         range: 2,
